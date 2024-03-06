@@ -1,0 +1,194 @@
+{
+  "events": [
+    {
+      "eventId": "1",
+      "eventTime": "2024-03-06T05:32:26.280075Z",
+      "eventType": "WorkflowExecutionStarted",
+      "version": "0",
+      "taskId": "1048664",
+      "workerMayIgnore": false,
+      "workflowExecutionStartedEventAttributes": {
+        "workflowType": {
+          "name": "SampleChildWorkflow"
+        },
+        "parentWorkflowNamespace": "default",
+        "parentWorkflowNamespaceId": "4770b9a7-ffee-4871-affc-109639d2b563",
+        "parentWorkflowExecution": {
+          "workflowId": "parent-workflow_a341e9d8-ecf2-4a3a-a63c-e575e177f727",
+          "runId": "c4efae11-7b91-4c53-ac6c-64abb4ff70f7"
+        },
+        "parentInitiatedEventId": "5",
+        "taskQueue": {
+          "name": "child-workflow-continue-as-new",
+          "kind": "Normal",
+          "normalName": ""
+        },
+        "input": {
+          "payloads": [
+            {
+              "metadata": {
+                "encoding": "anNvbi9wbGFpbg==",
+                "encodingDecoded": "json/plain"
+              },
+              "data": 3
+            },
+            {
+              "metadata": {
+                "encoding": "anNvbi9wbGFpbg==",
+                "encodingDecoded": "json/plain"
+              },
+              "data": 2
+            }
+          ]
+        },
+        "workflowExecutionTimeout": "0s",
+        "workflowRunTimeout": "0s",
+        "workflowTaskTimeout": "10s",
+        "continuedExecutionRunId": "311a5951-2ff7-48b1-92d5-41e0e35010b0",
+        "initiator": "Workflow",
+        "continuedFailure": null,
+        "lastCompletionResult": null,
+        "originalExecutionRunId": "c9102ebe-e349-422d-854f-756265f8ede1",
+        "identity": "",
+        "firstExecutionRunId": "5f5bbe89-b434-407f-a754-5c1a4c9e0155",
+        "retryPolicy": null,
+        "attempt": 1,
+        "workflowExecutionExpirationTime": null,
+        "cronSchedule": "",
+        "firstWorkflowTaskBackoff": "0.987388s",
+        "memo": null,
+        "searchAttributes": null,
+        "prevAutoResetPoints": {
+          "points": [
+            {
+              "binaryChecksum": "5185025cd49abe8142b1e3b64548512a",
+              "runId": "5f5bbe89-b434-407f-a754-5c1a4c9e0155",
+              "firstWorkflowTaskCompletedId": "4",
+              "createTime": "2024-03-06T05:32:24.270765Z",
+              "expireTime": "2024-03-07T05:32:24.270953Z",
+              "resettable": true
+            }
+          ]
+        },
+        "header": {
+          "fields": {}
+        },
+        "parentInitiatedEventVersion": "0",
+        "workflowId": "child_workflow:c4efae11-7b91-4c53-ac6c-64abb4ff70f7",
+        "sourceVersionStamp": null
+      }
+    },
+    {
+      "eventId": "2",
+      "eventTime": "2024-03-06T05:32:27.269948Z",
+      "eventType": "WorkflowTaskScheduled",
+      "version": "0",
+      "taskId": "1048672",
+      "workerMayIgnore": false,
+      "workflowTaskScheduledEventAttributes": {
+        "taskQueue": {
+          "name": "child-workflow-continue-as-new",
+          "kind": "Normal",
+          "normalName": ""
+        },
+        "startToCloseTimeout": "10s",
+        "attempt": 1
+      }
+    },
+    {
+      "eventId": "3",
+      "eventTime": "2024-03-06T05:32:27.274434Z",
+      "eventType": "WorkflowTaskStarted",
+      "version": "0",
+      "taskId": "1048675",
+      "workerMayIgnore": false,
+      "workflowTaskStartedEventAttributes": {
+        "scheduledEventId": "2",
+        "identity": "9592@Keiths-MacBook-Pro.local@",
+        "requestId": "c8b7cf34-b4f3-44ce-a90a-d2ffca37911e",
+        "suggestContinueAsNew": false,
+        "historySizeBytes": "662"
+      }
+    },
+    {
+      "eventId": "4",
+      "eventTime": "2024-03-06T05:32:27.279714Z",
+      "eventType": "WorkflowTaskCompleted",
+      "version": "0",
+      "taskId": "1048679",
+      "workerMayIgnore": false,
+      "workflowTaskCompletedEventAttributes": {
+        "scheduledEventId": "2",
+        "startedEventId": "3",
+        "identity": "9592@Keiths-MacBook-Pro.local@",
+        "binaryChecksum": "",
+        "workerVersion": {
+          "buildId": "5185025cd49abe8142b1e3b64548512a",
+          "bundleId": "",
+          "useVersioning": false
+        },
+        "sdkMetadata": {
+          "coreUsedFlags": [],
+          "langUsedFlags": [
+            3
+          ],
+          "sdkName": "temporal-go",
+          "sdkVersion": "1.25.1"
+        },
+        "meteringMetadata": {
+          "nonfirstLocalActivityExecutionAttempts": 0
+        }
+      }
+    },
+    {
+      "eventId": "5",
+      "eventTime": "2024-03-06T05:32:27.280171Z",
+      "eventType": "WorkflowExecutionContinuedAsNew",
+      "version": "0",
+      "taskId": "1048680",
+      "workerMayIgnore": false,
+      "workflowExecutionContinuedAsNewEventAttributes": {
+        "newExecutionRunId": "24cd95b4-9d77-48df-9419-8828cc776dd4",
+        "workflowType": {
+          "name": "SampleChildWorkflow"
+        },
+        "taskQueue": {
+          "name": "child-workflow-continue-as-new",
+          "kind": "Normal",
+          "normalName": ""
+        },
+        "input": {
+          "payloads": [
+            {
+              "metadata": {
+                "encoding": "anNvbi9wbGFpbg==",
+                "encodingDecoded": "json/plain"
+              },
+              "data": 4
+            },
+            {
+              "metadata": {
+                "encoding": "anNvbi9wbGFpbg==",
+                "encodingDecoded": "json/plain"
+              },
+              "data": 1
+            }
+          ]
+        },
+        "workflowRunTimeout": "0s",
+        "workflowTaskTimeout": "10s",
+        "workflowTaskCompletedEventId": "4",
+        "backoffStartInterval": null,
+        "initiator": "Unspecified",
+        "failure": null,
+        "lastCompletionResult": null,
+        "header": {
+          "fields": {}
+        },
+        "memo": null,
+        "searchAttributes": null,
+        "useCompatibleVersion": true
+      }
+    }
+  ]
+}
