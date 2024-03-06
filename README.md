@@ -1,9 +1,7 @@
 ## Temporal Migration Analyzer
 Thanks to colleague [Steve Adroulakis](https://github.com/steveandroulakis) for providing inspiration and example for parsing Temporal Workflow history.
 
-This python script will take a directory containing one or more Temporal Workflow histories and analyze each to recommend migration approach. It will also point out things that should be considered when migrating a workflow from one namespace to another (typically between self-hosted and cloud). 
-
-It will point out if a workflow is a child, start children, recieves a signal, recieves a update or uses search attributes.
+This python script will take a directory containing one or more Temporal Workflow histories and analyze each to provide further insight into how easy or difficult a given workflow is to migrate. It will also point out things that should be considered when migrating a workflow from one namespace to another (typically between self-hosted and cloud). The goal being to weed out the workflows that are easy to migrate with a drainable approach or those that require more discovery and thought.
 
 Output is forvided in csv format so it can be imported into excel.
 
