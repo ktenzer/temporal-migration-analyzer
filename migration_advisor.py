@@ -2,6 +2,8 @@ import json
 import csv
 import sys
 from pathlib import Path
+from datetime import datetime
+from datetime import timezone
 
 def analyze_history(filepath):
     """
@@ -15,14 +17,30 @@ def analyze_history(filepath):
         print(f"Error decoding JSON from file: {filepath}")
         return None, 0
 
+    events = len(data['events'])
+    start_time = data['events'][0]['eventTime']
+    end_time = data['events'][events - 1]['eventTime']
+
+    convert_start_time = datetime.fromisoformat(start_time[:-1]).astimezone(timezone.utc)
+    convert_end_time = datetime.fromisoformat(end_time[:-1]).astimezone(timezone.utc)
+    start_time_epoch = convert_start_time.timestamp()
+    end_time_epoch = convert_end_time.timestamp()
+
+    isLongRunning = False
+    if end_time_epoch - start_time_epoch > 86400:
+        isLongRunning = True
+
     workflow_id = data.get('events', [{}])[0].get('workflowExecutionStartedEventAttributes', {}).get('workflowId', 'Unknown')
-    signal_count = sum(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionSignaled")
-    child_workflow_count = sum(1 for event in data.get('events', []) if event.get('eventType') == "ChildWorkflowExecutionStarted")
-    search_attribute_upsert_count = sum(1 for event in data.get('events', []) if event.get('eventType') == "UpsertWorkflowSearchAttributes")
+    isSignal = any(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionSignaled")
+    isParentWorkflow = any(1 for event in data.get('events', []) if event.get('eventType') == "ChildWorkflowExecutionStarted")
+    isUpsertSearchAttributes = any(1 for event in data.get('events', []) if event.get('eventType') == "UpsertWorkflowSearchAttributes")
     parent_workflow = data.get('events', [{}])[0].get('workflowExecutionStartedEventAttributes', {}).get('parentWorkflowExecution', 'Unknown')
     search_attributes_input = data.get('events', [{}])[0].get('workflowExecutionStartedEventAttributes', {}).get('searchAttributes', 'Unknown')
-    update_accepted = sum(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionUpdateAccepted")
-    update_rejected = sum(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionUpdateRejected")
+    isUpdateAccepted = any(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionUpdateAccepted")
+    isUpdateRejected = any(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionUpdateRejected")
+    isContinueAsNew = any(1 for event in data.get('events', []) if event.get('eventType') == "WorkflowExecutionContinuedAsNew")
+
+
 
     isChildWorkflow = False
     if parent_workflow != None:
@@ -33,10 +51,10 @@ def analyze_history(filepath):
         isSearchAttributeInput = True
 
     isUpdate = False
-    if update_accepted > 0 or update_rejected > 0:
+    if isUpdateAccepted or isUpdateRejected:
         isUpdate = True
 
-    return workflow_id, signal_count, isUpdate, child_workflow_count, isChildWorkflow, isSearchAttributeInput, search_attribute_upsert_count
+    return workflow_id, isLongRunning, isContinueAsNew, isSignal, isUpdate, isParentWorkflow, isChildWorkflow, isSearchAttributeInput, isUpsertSearchAttributes
 
 def process_directory(directory):
     """
@@ -46,16 +64,16 @@ def process_directory(directory):
     directory_path = Path(directory)
     results = []
     for file_path in directory_path.glob('*.json'):
-        workflow_id, signal_count, isUpdate, child_workflow_count, isChildWorkflow, isSearchAttributeInput, search_attribute_upsert_count = analyze_history(file_path)
+        workflow_id, isLongRunning, isContinueAsNew, isSignal, isUpdate, isParentWorkflow, isChildWorkflow, isSearchAttributeInput, isUpsertSearchAttributes = analyze_history(file_path)
 
         migration_recommendation = ''
-        if signal_count > 0 or child_workflow_count > 0 or isChildWorkflow or isUpdate:
+        if isSignal or isParentWorkflow or isChildWorkflow or isUpdate or isLongRunning:
             migration_recommendation = 'custom'
         else:
             migration_recommendation = 'drainable'
 
         if workflow_id:
-            results.append((file_path.name, workflow_id, signal_count, isUpdate, child_workflow_count, isChildWorkflow, isSearchAttributeInput, search_attribute_upsert_count, migration_recommendation))
+            results.append((file_path.name, workflow_id, isLongRunning, isContinueAsNew, isSignal, isUpdate, isParentWorkflow, isChildWorkflow, isSearchAttributeInput, isUpsertSearchAttributes, migration_recommendation))
     return results
 
 def output_to_stdout(results):
@@ -63,7 +81,7 @@ def output_to_stdout(results):
     Output the results to stdout in CSV format.
     """
     writer = csv.writer(sys.stdout)
-    writer.writerow(['filename', 'workflowid', 'signals', 'is update', 'child workflows', 'is child', 'input search attributes', 'search attribute upserts', 'migration recommendation'])
+    writer.writerow(['filename', 'workflowid', 'isLongRunning', 'isContinueAsNew', 'isSignal', 'isUpdate', 'isParent', 'isChild', 'isInputSearchAttribute', 'isUpsertSearchAttributes', 'recommendation'])
     writer.writerows(results)
 
 def main():
