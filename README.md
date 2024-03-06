@@ -18,11 +18,6 @@ To run on example history files:
 $ python migration_advisor.py example_history
 ```
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
 Output:
 ```bash
 filename,workflowid,isLongRunning,isContinueAsNew,isSignal,isUpdate,isParent,isChild,isInputSearchAttribute,isUpsertSearchAttributes,recommendation
