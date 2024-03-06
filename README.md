@@ -16,5 +16,6 @@ To run on example history files:
 
 Output:
 
-|filename|workflowid|isLongRunning|isContinueAsNew|isSignal|isUpdate|isParent|isChild|isInputSearchAttribute|isUpsertSearchAttributes|recommendation|
-|search_attributes_events.json|order-317711|False|False|False|False|False|False|False|True|drainable|
+| filename | workflowid | isLongRunning | isContinueAsNew | isSignal | isUpdate | isParent |isChild | isInputSearchAttribute |isUpsertSearchAttributes | recommendation |
+| search_attributes_events.json | order-317711 | False | False | False | False | False | False |False | True | drainable |
+
