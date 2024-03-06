@@ -68,7 +68,7 @@ def process_directory(directory):
 
         migration_recommendation = ''
         if isSignal or isParentWorkflow or isChildWorkflow or isUpdate or isLongRunning:
-            migration_recommendation = 'custom'
+            migration_recommendation = 'discover'
         else:
             migration_recommendation = 'drainable'
 
