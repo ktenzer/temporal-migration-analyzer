@@ -68,9 +68,9 @@ def process_directory(directory):
 
         migration_recommendation = ''
         if isSignal or isParentWorkflow or isChildWorkflow or isUpdate or isLongRunning:
-            migration_recommendation = 'discover'
+            migration_recommendation = 'complex'
         else:
-            migration_recommendation = 'drainable'
+            migration_recommendation = 'simple'
 
         if workflow_id:
             results.append((file_path.name, workflow_id, isLongRunning, isContinueAsNew, isSignal, isUpdate, isParentWorkflow, isChildWorkflow, isSearchAttributeInput, isUpsertSearchAttributes, migration_recommendation))
@@ -81,7 +81,7 @@ def output_to_stdout(results):
     Output the results to stdout in CSV format.
     """
     writer = csv.writer(sys.stdout)
-    writer.writerow(['filename', 'workflowid', 'isLongRunning', 'isContinueAsNew', 'isSignal', 'isUpdate', 'isParent', 'isChild', 'isInputSearchAttribute', 'isUpsertSearchAttributes', 'recommendation'])
+    writer.writerow(['filename', 'workflowid', 'isLongRunning', 'isContinueAsNew', 'isSignal', 'isUpdate', 'isParent', 'isChild', 'isInputSearchAttribute', 'isUpsertSearchAttributes', 'catagorization'])
     writer.writerows(results)
 
 def main():

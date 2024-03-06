@@ -18,14 +18,14 @@ $ python migration_advisor.py example_history
 
 Output:
 ```bash
-filename,workflowid,isLongRunning,isContinueAsNew,isSignal,isUpdate,isParent,isChild,isInputSearchAttribute,isUpsertSearchAttributes,recommendation
-search_attributes_events.json,order-317711,False,False,False,False,False,False,False,True,drainable
-update_events.json,order-148643,False,False,False,True,False,False,False,False,discover
-parent_events.json,order-153996,False,False,False,False,True,False,False,False,discover
-three_signal_events.json,TRANSFER-VSV-155,False,False,True,False,False,False,False,False,discover
-zero_signal_events.json,TRANSFER-SOQ-104,False,False,False,False,False,False,False,False,drainable
-one_signal_events.json,TRANSFER-BAX-210,False,False,True,False,False,False,False,False,discover
-child_events.json,shipment-153996-654321,False,False,False,False,False,True,False,False,discover
-continue-as-new_events.json,child_workflow:c4efae11-7b91-4c53-ac6c-64abb4ff70f7,False,True,False,False,False,True,False,False,discover
+filename,workflowid,isLongRunning,isContinueAsNew,isSignal,isUpdate,isParent,isChild,isInputSearchAttribute,isUpsertSearchAttributes,catagorization
+search_attributes_events.json,order-317711,False,False,False,False,False,False,False,True,simple
+update_events.json,order-148643,False,False,False,True,False,False,False,False,complex
+parent_events.json,order-153996,False,False,False,False,True,False,False,False,complex
+three_signal_events.json,TRANSFER-VSV-155,False,False,True,False,False,False,False,False,complex
+zero_signal_events.json,TRANSFER-SOQ-104,False,False,False,False,False,False,False,False,simple
+one_signal_events.json,TRANSFER-BAX-210,False,False,True,False,False,False,False,False,complex
+child_events.json,shipment-153996-654321,False,False,False,False,False,True,False,False,complex
+continue-as-new_events.json,child_workflow:c4efae11-7b91-4c53-ac6c-64abb4ff70f7,False,True,False,False,False,True,False,False,complex
 ```
 
