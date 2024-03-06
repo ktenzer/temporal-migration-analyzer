@@ -8,11 +8,15 @@ It will point out if a workflow is a child, start children, recieves a signal, r
 Output is forvided in csv format so it can be imported into excel.
 
 ## Instructions
-`$ python migration_advisor.py <Directory of JSON History Files>`
+```bash
+$ python migration_advisor.py <Directory of JSON History Files>
+```
 
 To run on example history files:
 
-`$ python migration_advisor.py example_history`
+```bash
+$ python migration_advisor.py example_history
+```
 
 | First Header  | Second Header |
 | ------------- | ------------- |
@@ -20,8 +24,14 @@ To run on example history files:
 | Content Cell  | Content Cell  |
 
 Output:
-
-| filename | workflowid | isLongRunning | isContinueAsNew | isSignal | isUpdate | isParent |isChild | isInputSearchAttribute |isUpsertSearchAttributes | recommendation |
-| ----------------------------- | ------------ | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ---------- |
-| search_attributes_events.json | order-317711 | False | False | False | False | False | False |False | True | drainable |
+```bash
+filename,workflowid,isLongRunning,isContinueAsNew,isSignal,isUpdate,isParent,isChild,isInputSearchAttribute,isUpsertSearchAttributes,recommendation
+search_attributes_events.json,order-317711,False,False,False,False,False,False,False,True,drainable
+update_events.json,order-148643,False,False,False,True,False,False,False,False,custom
+parent_events.json,order-153996,False,False,False,False,True,False,False,False,custom
+three_signal_events.json,TRANSFER-VSV-155,False,False,True,False,False,False,False,False,custom
+zero_signal_events.json,TRANSFER-SOQ-104,False,False,False,False,False,False,False,False,drainable
+one_signal_events.json,TRANSFER-BAX-210,False,False,True,False,False,False,False,False,custom
+child_events.json,shipment-153996-654321,False,False,False,False,False,True,False,False,custom
+```
 
